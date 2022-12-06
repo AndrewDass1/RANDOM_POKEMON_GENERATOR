@@ -1,49 +1,19 @@
 from flask import Flask, render_template
-import random
-import os
-from PIL import Image
-
-
-#Add a lot of text within the function, import py file use send from directory
-#Add buttons
-#Redirect to pokemon pictures
-#Use random to get a random pokemon picture and output it
+import randomized_pokemon
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def homepage():
     return render_template('homepage.html')
-    
 
-def chosen_pokemon():
-    region_names = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh']
+@app.route("/pokemon_result.html")    
+def the_pokemon_result():
+    random_pokemon_image, pokemon_name = randomized_pokemon.chosen_pokemon()
+    return render_template('pokemon_result.html', random_pokemon_image=random_pokemon_image, pokemon_name=pokemon_name)
 
-    pick_the_region = random.choice(region_names)
-
-    if pick_the_region == 'Kanto':
-        pokemon_entry = random.randint(1, 151)
-    elif pick_the_region == 'Johto':
-        pokemon_entry = random.randint(152, 251)
-    elif pick_the_region == 'Hoenn':
-        pokemon_entry = random.randint(252, 386)
-    elif pick_the_region == 'Sinnoh':
-        pokemon_entry = random.randint(387, 493)
-    else:
-        print("An error has occurred. Run the program again")
-        
-    str_pokemon_entry = str(pokemon_entry)
-        
-    if pokemon_entry <= 9:
-        str_pokemon_entry = "00" + str_pokemon_entry
-    elif pokemon_entry >= 10 and pokemon_entry <= 99:
-        str_pokemon_entry = "0" + str_pokemon_entry
-
-    path = r".\static\Pokemon_Images\{}\{}.png".format(pick_the_region, str_pokemon_entry)
-    img = Image.open(path)
-    img.show()
 
 
 if __name__== '__main__':
-    app.run()
+    app.run(host="0.0.0.0", debug=True, port=5000)
     
