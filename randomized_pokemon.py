@@ -2,17 +2,20 @@ from numpy import random
 from PIL import Image
 
 def chosen_pokemon():
+    region_number = random.randint(0,3)
     region_names = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh']
+    region_selection = region_names[region_number]
 
-    pick_the_region = random.choice(region_names)
-
-    if pick_the_region == 'Kanto':
+    # pick_the_region = random.choice(region_names)
+    
+    
+    if region_selection == 'Kanto':
         pokemon_entry = random.randint(1, 151)
-    elif pick_the_region == 'Johto':
+    elif region_selection == 'Johto':
         pokemon_entry = random.randint(152, 251)
-    elif pick_the_region == 'Hoenn':
+    elif region_selection == 'Hoenn':
         pokemon_entry = random.randint(252, 386)
-    elif pick_the_region == 'Sinnoh':
+    elif region_selection == 'Sinnoh':
         pokemon_entry = random.randint(387, 493)
     else:
         print("An error has occurred. Run the program again")
@@ -21,18 +24,19 @@ def chosen_pokemon():
     str_pokemon_entry = str(pokemon_entry)
         
     if pokemon_entry <= 9:
-        str_pokemon_entry = "00" + str_pokemon_entry
+        str_pokemon_entry = '00' + str_pokemon_entry
     elif pokemon_entry >= 10 and pokemon_entry <= 99:
-        str_pokemon_entry = "0" + str_pokemon_entry
+        str_pokemon_entry = '0' + str_pokemon_entry
 
-    path = r".\static\images\{}\{}.png".format(pick_the_region, str_pokemon_entry)
+    pokemon_entry_in_a_list = []
+    pokemon_entry_in_a_list.append(str_pokemon_entry)
+
+    path = r".\static\images\{}\{}.png".format(region_selection, pokemon_entry_in_a_list[0])
     img = Image.open(path)
     picture_of_pokemon = img.show()
 
-    # print(picture_of_pokemon)
 
-
-    # Pokemon Name
+    # Pokemon Names
     pokemon_name_list = [ 
         'Missingno',
         'Bulbasaur',
@@ -530,6 +534,6 @@ def chosen_pokemon():
         'Arceus'
     ]
 
-    # print(pokemon_name_list[pokemon_entry])
+    url_link = "static\images\{}\{}.png".format(region_selection,str_pokemon_entry)
 
-    return picture_of_pokemon, pokemon_name_list[pokemon_entry]
+    return url_link, picture_of_pokemon, pokemon_name_list[pokemon_entry]
