@@ -9,8 +9,8 @@ def homepage():
 
 @app.route("/pokemon_result.html")    
 def the_pokemon_result():
-    random_pokemon_image, pokemon_name = randomized_pokemon.chosen_pokemon()
-    return render_template('pokemon_result.html', random_pokemon_image=random_pokemon_image, pokemon_name=pokemon_name)
+    url_link, random_pokemon_image, pokemon_name = randomized_pokemon.chosen_pokemon()
+    return render_template('pokemon_result.html', url_link=url_link, random_pokemon_image=random_pokemon_image, pokemon_name=pokemon_name)
 
 
 
